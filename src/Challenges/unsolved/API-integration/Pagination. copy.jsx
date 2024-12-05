@@ -1,53 +1,74 @@
 import React, { useState, useEffect } from "react";
+
 const PaginationUI = () => {
+  // State to hold the list of posts fetched from the API
   const [posts, setPosts] = useState([]);
+  // State to track the current page number, initialized to the first page
   const [currentPage, setCurrentPage] = useState(1);
+  // Constant defining the number of items to display per page
   const itemsPerPage = 10;
 
+  // useEffect hook to fetch posts from the API when the component mounts
   useEffect(() => {
+    // Asynchronous function to fetch posts
     const fetchPosts = async () => {
       try {
+        // Fetch data from the JSONPlaceholder API
         const response = await fetch(
           "https://jsonplaceholder.typicode.com/posts"
         );
+        // Parse the JSON response
         const data = await response.json();
+        // Update the 'posts' state with the fetched data
         setPosts(data);
       } catch (error) {
+        // Log any errors that occur during the fetch operation
         console.error("Error fetching posts:", error);
       }
     };
 
+    // Invoke the fetchPosts function
     fetchPosts();
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once after the initial render
+  ç
+  // Calculate the index of the last post on the current page
   const indexOfLastPost = currentPage * itemsPerPage;
+  
+  // Calculate the index of the first post on the current page
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+  // Slice the 'posts' array to get only the posts for the current page
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  
+  // Calculate the total number of pages required
   const totalPages = Math.ceil(posts.length / itemsPerPage);
   
+  // Generate an array of page numbers for rendering pagination buttons
   const pageNumbers = Array.from(
     { length: totalPages },
     (_, index) => index + 1
   );
-
-  
+  // Function to handle the "Next" button click
   const handleNext = () => {
+    // Increment the current page number if it's less than the total number of pages
     if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
+  // Function to handle the "Previous" button click
   const handlePrevious = () => {
-    if (currentPage < totalPages) {
+    // Decrement the current page number if it's greater than 1
+    if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
+  // Function to handle clicking on a specific page number
   const handlePageClick = (pageNumber) => {
+    // Set the current page to the selected page number
     setCurrentPage(pageNumber);
   };
-
-
-    
+  
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>Paginated List</h1>
@@ -104,7 +125,6 @@ const PaginationUI = () => {
         </button>
       </div>
     </div>
-
   );
 };
 
