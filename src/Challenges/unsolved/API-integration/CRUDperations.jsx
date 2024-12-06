@@ -1,30 +1,6 @@
 import React, { useReducer, useEffect, useRef } from "react";
-
-initialState = {
-  isLoading: false,
-  error: null,
-  items: [],
-};
-
-const useFetch = async (url, headers = {}) => {
-  try {
-    const resp = await fetch(url, headers);
-    if (!resp.ok)
-      throw new Error(
-        "Could not retrive data from server, please try again latter."
-      );
-
-    const resData = await resp.json();
-    return { err: null, data: resData };
-  } catch (e) {
-    return { err: null, data: resData };
-  }
-};
-const reducer = (state, action) => {};
-
-const CRUDAppUI = () => {
-  // CRUD Operations Challenge:
-  /**
+// CRUD Operations Challenge:
+/**
 1. Set Up State Management
 Use useState to manage:
 The list of items.
@@ -63,6 +39,57 @@ Ensure the UI is visually appealing (e.g., add hover effects to buttons).
 Use a modal library (or create a simple modal component) for the "Edit" form.
    */
 
+const useFetch = () => {
+  const fetchData = async (url, headers = {}) => {
+    try {
+      const resp = await fetch(url, headers);
+      if (!resp.ok)
+        throw new Error(
+          "Could not retrive data from server, please try again latter."
+        );
+
+      const resData = await resp.json();
+      return { err: null, data: resData };
+    } catch (e) {
+      return { err: e.message, data: resData };
+    }
+  };
+  return { fetchData };
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "LOADING":
+      return { ...state, isLoading: true };
+    case "RESP":
+      return { ...state, isLoading: false, items: action.items };
+    case "ERROR":
+      return { error: action.e, isLoading: false, items: [] };
+  }
+};
+
+const initialState = {
+  isLoading: false,
+  error: null,
+  items: [],
+};
+const CRUDAppUI = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { fetchData } = useFetch();
+
+  useEffect(() => {
+    const getData = async () => {
+      const ret = await fetchData("http://localhost:8080/items", null);
+      if (ret.err) {
+        dispatch({ type: "ERROR", e: ret.err });
+      } else {
+        dispatch({ type: "RESP", items: ret.data });
+      }
+    };
+    getData()
+  }, []);
+
+  console.log(state.items)
+
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>CRUD Operations</h1>
@@ -82,14 +109,14 @@ Use a modal library (or create a simple modal component) for the "Edit" form.
         </button>
       </div>
       <ul style={{ textAlign: "left", margin: "0 auto", maxWidth: "400px" }}>
-        <li>
-          Item 1 <button style={{ marginLeft: "10px" }}>Edit</button>
-          <button>Delete</button>
-        </li>
-        <li>
-          Item 2 <button style={{ marginLeft: "10px" }}>Edit</button>
-          <button>Delete</button>
-        </li>
+        {state.items.length > 0
+          ? state.items.map((item) => (
+              <li key={item.id}>
+                {item.name} <button style={{ marginLeft: "10px" }}>Edit</button>
+                <button>Delete</button>
+              </li>
+            ))
+          : null}
       </ul>
     </div>
   );

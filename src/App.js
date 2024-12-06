@@ -2,7 +2,7 @@ import FecthJsonPlaceholder from "./Challenges/unsolved/API-integration/FecthJso
 import CRUDAppUI from "./Challenges/unsolved/API-integration/CRUDperations";
 import PaginationUI from "./Challenges/unsolved/API-integration/Pagination.";
 function App() {
-  return <PaginationUI />;
+  return <CRUDAppUI />;
 }
 
 export default App;
