@@ -11,11 +11,33 @@ app.use(bodyParser.json()); // Parse JSON request bodies
 
 // In-memory database (simulates a database)
 let items = [
-  { id: 1, name: "INTERVIEW PREPARATION" },
-  { id: 1, name: "CODE CHALLENGE" },
-  { id: 1, name: "SEARCHING FOR A JOB" },
+  {
+    id: 1,
+    name: "The impediment to action advances action,What stands in the way becomes the way.",
+  },
+  {
+    id: 2,
+    name: "Very little is need to make a happy life; it is all within yourself, in your way of think.",
+  },
+  {
+    id: 3,
+    name: "It is not deth that a man should fear, but he should fear never beginning to live.",
+  },
+  {
+    id: 4,
+    name: "You have power over your mind - not outside events. Realize this, and you will find strength.",
+  },
+  {
+    id: 5,
+    name: "The universe is transformation: life is opinion.",
+  },
+  {
+    id: 6,
+    name: "Life is really simple, but we insist on making it complicated.",
+  },
 ];
-let idCounter = 1;
+
+let idCounter = 7;
 
 // Routes
 

@@ -1,0 +1,110 @@
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputField {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.addButton {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: #0056b3;
+}
+
+.list {
+  text-align: left;
+  margin: 0 auto;
+  max-width: 600px;
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: row; /* Stack content vertically */
+  align-items: flex-start; /* Align text and buttons to the start */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+.itemText {
+  width: 80%;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px; /* Space between text and buttons */
+}
+
+.loading {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.actionButton {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  width: 150px;
+  display: flex;
+}
+
+.editButton {
+  background-color: #ffc107;
+  color: black;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.editButton:hover {
+  background-color: #e0a800;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  width: 70px;
+
+
+}
+
+.deleteButton:hover {
+  background-color: #bd2130;
+}
+
+.editing{
+    color: #e0a800;
+}
