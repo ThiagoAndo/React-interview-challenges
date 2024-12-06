@@ -10,14 +10,20 @@ app.use(cors()); // Allow cross-origin requests
 app.use(bodyParser.json()); // Parse JSON request bodies
 
 // In-memory database (simulates a database)
-let items = [];
+let items = [
+  { id: 1, name: "INTERVIEW PREPARATION" },
+  { id: 1, name: "CODE CHALLENGE" },
+  { id: 1, name: "SEARCHING FOR A JOB" },
+];
 let idCounter = 1;
 
 // Routes
 
 // Get all items (READ)
 app.get("/items", (req, res) => {
-  res.json(items);
+  setTimeout(() => {
+    res.json(items);
+  }, 2000);
 });
 
 // Add a new item (CREATE)
@@ -35,8 +41,6 @@ app.post("/items", (req, res) => {
 app.put("/items/:id", (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-
-
 
   const item = items.find((item) => item.id === parseInt(id));
   if (!item) {

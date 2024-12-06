@@ -1,5 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useReducer, useEffect, useRef } from "react";
 
+initialState = {
+  isLoading: false,
+  error: null,
+  items: [],
+};
+
+const useFetch = async (url, headers = {}) => {
+  try {
+    const resp = await fetch(url, headers);
+    if (!resp.ok)
+      throw new Error(
+        "Could not retrive data from server, please try again latter."
+      );
+
+    const resData = await resp.json();
+    return { err: null, data: resData };
+  } catch (e) {
+    return { err: null, data: resData };
+  }
+};
+const reducer = (state, action) => {};
 
 const CRUDAppUI = () => {
   // CRUD Operations Challenge:
@@ -62,11 +83,11 @@ Use a modal library (or create a simple modal component) for the "Edit" form.
       </div>
       <ul style={{ textAlign: "left", margin: "0 auto", maxWidth: "400px" }}>
         <li>
-          Item 1 <button style={{ marginLeft: "10px" }}>Edit</button>{" "}
+          Item 1 <button style={{ marginLeft: "10px" }}>Edit</button>
           <button>Delete</button>
         </li>
         <li>
-          Item 2 <button style={{ marginLeft: "10px" }}>Edit</button>{" "}
+          Item 2 <button style={{ marginLeft: "10px" }}>Edit</button>
           <button>Delete</button>
         </li>
       </ul>
