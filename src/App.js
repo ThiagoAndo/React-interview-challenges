@@ -5,8 +5,7 @@ import SwitcherApp from "./Challenges/unsolved/Theme-switcher/SwitcherApp";
 import CounterUI from "./Challenges/unsolved/Basic-concepts/Counter";
 import SearchFilterUI from "./Challenges/unsolved/Basic-concepts/SearchFilterUI";
 function App() {
-  return <SearchFilterUI />;
+  return <PaginationUI />;
 }
 
 export default App;
- 

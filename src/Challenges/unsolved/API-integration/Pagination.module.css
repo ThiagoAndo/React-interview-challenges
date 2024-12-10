@@ -1,0 +1,92 @@
+/* Container styles */
+.container {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Title styles */
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* List styles */
+.list {
+  text-align: left;
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: #555;
+}
+
+/* Pagination controls */
+.paginationControls {
+  margin-top: 20px;
+}
+
+.paginationButton {
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.paginationButton:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.paginationButton:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #777;
+}
+
+.active {
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full screen height for centering */
+}
+
+/* Spinner styles */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #f3f3f3; /* Light gray border */
+  border-top: 6px solid #007bff; /* Blue border for the spinner */
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* Continuous spinning */
+}
+.error {
+  color: red !important;
+  font-size: 2rem;
+  font-weight: bold;
+}
+/* Animation for spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
