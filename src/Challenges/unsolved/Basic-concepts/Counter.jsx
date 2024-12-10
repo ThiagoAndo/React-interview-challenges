@@ -1,6 +1,8 @@
 // 1. CounterUI Challenge
 // Create a CounterUI component with the following requirements:
 
+import { useState } from "react";
+
 // Display a numeric count.
 // Provide three buttons to:
 // Increment the count.
@@ -10,7 +12,28 @@
 // Ensure the component is reusable and takes props for the count and callback functions
 // for the buttons (onIncrement, onDecrement, and onReset).
 
-const CounterUI = ({ count, onIncrement, onDecrement, onReset }) => {
+// import { useReducer } from "react";
+
+// const reducer = (state, action ) => {
+//   switch (action.type) {
+//     case "INCREMENT":
+//       return { count: state.count + 1 };
+//     case "DECREMENT":
+//       return { count: state.count - 1 };
+//     case "RESET":
+//       return { count: 0 };
+//     default:
+//       return state;
+//   }
+
+// };
+
+// const initialState = { count: 0 };
+
+const CounterUI = () => {
+  // const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [count, setCount] = useState(0);
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Counter App</h1>
@@ -25,11 +48,11 @@ const CounterUI = ({ count, onIncrement, onDecrement, onReset }) => {
           backgroundColor: "#f5f5f5",
         }}
       >
-        Count: {count}
+        {/* Count:{state.count} //=> useReducer*/}
+        Count:{count}
       </div>
       <div style={{ marginTop: "20px" }}>
         <button
-          onClick={onIncrement}
           style={{
             padding: "10px 20px",
             margin: "5px",
@@ -39,11 +62,12 @@ const CounterUI = ({ count, onIncrement, onDecrement, onReset }) => {
             borderRadius: "5px",
             cursor: "pointer",
           }}
+          // onClick={() => dispatch({ type: "INCREMENT" })} //=> useReducer
+          onClick={() => setCount((prev) => prev + 1)}
         >
           Increment
         </button>
         <button
-          onClick={onDecrement}
           style={{
             padding: "10px 20px",
             margin: "5px",
@@ -53,11 +77,12 @@ const CounterUI = ({ count, onIncrement, onDecrement, onReset }) => {
             borderRadius: "5px",
             cursor: "pointer",
           }}
+          // onClick={() => dispatch({ type: "DECREMENT" })} //=> useReducer
+          onClick={() => setCount((prev) => prev - 1)}
         >
           Decrement
         </button>
         <button
-          onClick={onReset}
           style={{
             padding: "10px 20px",
             margin: "5px",
@@ -67,6 +92,8 @@ const CounterUI = ({ count, onIncrement, onDecrement, onReset }) => {
             borderRadius: "5px",
             cursor: "pointer",
           }}
+          // onClick={() => dispatch({ type: "RESET" })}//=> useReducer
+          onClick={() => setCount(0)}
         >
           Reset
         </button>
@@ -74,7 +101,7 @@ const CounterUI = ({ count, onIncrement, onDecrement, onReset }) => {
     </div>
   );
 };
-
+export default CounterUI;
 // Initial count: 0
 
 // Without functional updates:
