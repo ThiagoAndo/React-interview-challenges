@@ -108,7 +108,7 @@ const SearchFilterUI = () => {
                     : styles.category2
                 }`}
               >
-                {fruit.name}- {fruit.category}
+                {fruit.name}-{fruit.category}
               </li>
             ))
           : null}
