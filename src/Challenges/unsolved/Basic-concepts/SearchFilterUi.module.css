@@ -1,0 +1,67 @@
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: linear-gradient(145deg, #f9f6f2, #eaeaea);
+  text-align: center;
+  color: #444;
+  font-family: 'Arial', sans-serif;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #444;
+  font-weight: bold;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  width: 60%;
+  padding: 12px;
+  border: 2px solid #ff6b6b;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.select {
+  padding: 12px;
+  border: 2px solid #1e90ff;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.listItem.category1 {
+  border: 2px solid #32cd32;
+  background: linear-gradient(145deg, #d0f0c0, #b9d9a9);
+}
+
+.listItem.category2 {
+  border: 2px solid #ffa500;
+  background: linear-gradient(145deg, #ffe4b2, #ffd27f);
+}

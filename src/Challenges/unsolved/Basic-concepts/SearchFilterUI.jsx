@@ -24,74 +24,94 @@
 // User Input: "m"
 
 // Filtered List:
+import styles from "./SearchFilterUi.module.css";
+import { useState, useRef } from "react";
 
-const fruits = ["Apple", "Banana", "Orange", "Mango", "Grapes"];
+const fruitObj = [
+  { name: "Apple", category: "Category 1" },
+  { name: "Banana", category: "Category 1" },
+  { name: "Orange", category: "Category 1" },
+  { name: "Mango", category: "Category 1" },
+  { name: "Grapes", category: "Category 1" },
+  { name: "Peach", category: "Category 2" },
+  { name: "Lemon", category: "Category 2" },
+  { name: "Pineapple", category: "Category 2" },
+  { name: "Strawberry", category: "Category 2" },
+  { name: "Blueberry", category: "Category 2" },
+];
+const fruits = [
+  { category1: ["Apple", "Banana", "Orange", "Mango", "Grapes"] },
+  { category2: ["Peach", "Lemon", "Pineapple", "Strawberry", "Blueberry"] },
+];
+
 const SearchFilterUI = () => {
+  const [filtered, setFiltered] = useState([]);
+  const fruitRef = useRef(null);
+
+  const handleSearch = () => {
+    console.log(fruitRef.current.value);
+    setFiltered(
+      fruitObj
+        .filter((fruit) => {
+          return fruit.name
+            .toLowerCase()
+            .includes(fruitRef.current.value.trim().toLowerCase());
+        })
+        .map((fruit) => {
+          return {
+            name: fruit.name,
+            category: fruit.category.toLowerCase().replace(" ", ""),
+          };
+        })
+    );
+  };
+
+  const handleOption = (e) => {
+    const filteredFruits = fruitObj
+      .filter((fruit) => {
+        return fruit.category.toLowerCase().replace(" ", "") === e.target.value;
+      })
+      .map((fruit) => {
+        return {
+          name: fruit.name,
+          category: fruit.category.toLowerCase().replace(" ", ""),
+        };
+      });
+    setFiltered(filteredFruits);
+  };
+
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "50px auto",
-        padding: "20px",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-        borderRadius: "10px",
-        textAlign: "center",
-        backgroundColor: "#fff",
-      }}
-    >
-      <h1 style={{ fontSize: "24px", marginBottom: "20px", color: "#333" }}>
-        Search & Filter
-      </h1>
-      <div style={{ marginBottom: "20px" }}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Search & Filter</h1>
+      <div className={styles.controls}>
         <input
           type="text"
           placeholder="Search..."
-          style={{
-            width: "calc(100% - 140px)",
-            padding: "10px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
-            marginRight: "10px",
-          }}
+          className={styles.input}
+          ref={fruitRef}
+          onChange={handleSearch}
         />
-        <select
-          style={{
-            padding: "10px",
-            width: "120px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
-          }}
-        >
-          <option value="all">All</option>
+        <select className={styles.select} onChange={handleOption}>
+          <option value="all">All Categories</option>
           <option value="category1">Category 1</option>
           <option value="category2">Category 2</option>
         </select>
       </div>
-      <ul style={{ listStyleType: "none", padding: "0" }}>
-        <li
-          style={{
-            padding: "15px",
-            marginBottom: "10px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
-            backgroundColor: "#f9f9f9",
-            textAlign: "left",
-          }}
-        >
-          Item 1 - Category 1
-        </li>
-        <li
-          style={{
-            padding: "15px",
-            marginBottom: "10px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
-            backgroundColor: "#f9f9f9",
-            textAlign: "left",
-          }}
-        >
-          Item 2 - Category 2
-        </li>
+      <ul className={styles.list}>
+        {filtered.length > 0
+          ? filtered.map((fruit) => (
+              <li
+                key={fruit.name}
+                className={`${styles.listItem} ${
+                  fruit.category === "category1"
+                    ? styles.category1
+                    : styles.category2
+                }`}
+              >
+                {fruit.name}- {fruit.category}
+              </li>
+            ))
+          : null}
       </ul>
     </div>
   );
