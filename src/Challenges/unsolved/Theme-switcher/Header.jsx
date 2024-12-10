@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Switcher.module.css";
-import { useContext } from "react";
 import { ThemeContext } from "./SwitcherApp";
-
+import { useContext } from "react";
 const Header = () => {
   const { toggleTheme } = useContext(ThemeContext);
   return (

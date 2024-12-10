@@ -37,4 +37,15 @@ function SwitcherApp() {
   );
 }
 
+
+
+
+// function SwitcherApp() {
+//   return (
+//     <div className={styles.App}>
+//       <Header />
+//       <Content />
+//     </div>
+//   );
+// }
 export default SwitcherApp;
