@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-
+import {  useReducer } from "react";
 // Timer/Stopwatch Challenge:
 /**
  * 1. Create a Stopwatch UI with:
@@ -9,58 +8,42 @@ import { useState, useEffect } from "react";
  * 2. Include placeholder text for when the timer is not running.
  * Bonus:
  * - Add lap functionality to record intermediate times.
- * The issue lies in your JSX evaluation logic, specifically with the 
+ * The issue lies in your JSX evaluation logic, specifically with the
  * increment operations (hr++, min++)
  *  and the use of logical expressions (&&, !, ?) inside your JSX code.
  *  Here's a breakdown of why this could result in unexpected behavior:
-
-
  */
-let min = 0;
-let hr = 0;
+const initialState = { hr: 0, min: 0, sec: 0 };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "STOP":
+      clearTimeout(timeOut);
+      return state;
+    case "RESET":
+      return initialState;
+    case "CLICK":
+      if (state.sec <= 58) return { ...state, sec: state.sec + 1 };
+      if (state.min <= 58 && state.sec === 59)
+        return { ...state, min: state.min + 1, sec: 0 };
+      if (state.hr <= 22 && state.min === 59)
+        return { hr: state.hr + 1, min: 0, sec: 0 };
+      if (state.hr === 23 && state.min === 59 && state.sec === 59)
+        return { hr: 0, min: 0, sec: 0 };
+      break;
+    default:
+      return state;
+  }
+};
 const TimerUI = () => {
-  const [time, setTime] = useState({ timer: 0, isRunning: false });
-  let timeOut = null;
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const startTime = () => {
     timeOut = setInterval(() => {
-      setTime((prev) => ({
-        ...prev,
-        timer: prev.timer === 59 ? 0 : prev.timer + 1,
-      }));
-    }, 200);
+      dispatch({ type: "CLICK" });
+    }, 100);
   };
-
-  console.log("running...");
   const returnZero = (time) => (time < 10 ? 0 : "");
-
-  useEffect(() => {
-    return clearTimeout(timeOut);
-  }, [time.isRunning]);
-
   return (
-    /*Side Effects in JSX:
-
-Increment operators (hr++ and min++) are causing side effects directly
- within your JSX. This is not recommended because JSX should only be 
- responsible for rendering, not modifying state or variables.
-When hr++ or min++ executes, they modify the values of hr and min directly,
- which can lead to unexpected results.
-Evaluation Order:
-
-In JavaScript, logical operators like && and || evaluate left-to-right and 
-return the last evaluated value. When combined with expressions that have 
-side effects, the result might not align with your expectations.
-State Management:
-
-Your useState hook for time is well-defined, but you're trying to manually 
-manipulate hr and min outside of the useState mechanism, which creates 
-inconsistency between the UI and the internal logic.
-Timer Logic in JSX:
-
-The evaluation inside JSX is complex and mixes timer logic with rendering.
- This makes it harder to debug and prone to errors.*/
- 
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>Stopwatch</h1>
       <div
@@ -73,12 +56,9 @@ The evaluation inside JSX is complex and mixes timer logic with rendering.
           borderRadius: "10px",
         }}
       >
-        {`${returnZero(hr)}${
-          min === 59 && hr === 24 && !time.isRunning ? (hr = 0) : hr++
-        }:
-          ${returnZero(min)}${
-          time.timer === 59 && time.isRunning ? (hr = 0) : min++
-        }:${returnZero(time.timer)}${time.timer}`}
+        {`${returnZero(state.hr)}${state.hr}:${returnZero(state.min)}${
+          state.min
+        }:${returnZero(state.sec)}${state.sec}`}
       </div>
       <div>
         <button
@@ -87,10 +67,18 @@ The evaluation inside JSX is complex and mixes timer logic with rendering.
         >
           Start
         </button>
-        <button style={{ padding: "10px 20px", marginRight: "10px" }}>
+        <button
+          onClick={() => dispatch({ type: "STOP" })}
+          style={{ padding: "10px 20px", marginRight: "10px" }}
+        >
           Stop
         </button>
-        <button style={{ padding: "10px 20px" }}>Reset</button>
+        <button
+          onClick={() => dispatch({ type: "RESET" })}
+          style={{ padding: "10px 20px" }}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
