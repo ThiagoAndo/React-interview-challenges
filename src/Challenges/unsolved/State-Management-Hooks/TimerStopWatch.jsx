@@ -60,6 +60,7 @@ Timer Logic in JSX:
 
 The evaluation inside JSX is complex and mixes timer logic with rendering.
  This makes it harder to debug and prone to errors.*/
+ 
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>Stopwatch</h1>
       <div
