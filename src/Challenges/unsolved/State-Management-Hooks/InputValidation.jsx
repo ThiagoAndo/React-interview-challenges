@@ -11,15 +11,35 @@
  */
 import React from "react";
 import styles from "./inputValidation.module.css";
-import { forwardRef, useState, useRef} from "react";
+import { forwardRef, useState, useRef, useEffect } from "react";
 
 const FormInput = forwardRef((props, ref) => {
-  return <input ref={ref} className={props.thisStyle} {...props} required />;
+  return <input ref={ref} className={props.thisStyle} {...props} />;
 });
 
 const InputValidationUI = () => {
-  const emailRef= useRef();
+  const emailRef = useRef();
   const passwordRef = useRef();
+  const [err, setErr] = useState([]);
+  const errArr = [];
+  const handleSubmit = () => {
+    emailRef.current.value.trim().length === 0 && errArr.push("Email is required") ;
+    passwordRef.current.value.trim().length === 0&& errArr.push("Password is required");
+    !emailRef.current.value.trim().includes("@") && errArr.push("Email is wromg") ;
+    !emailRef.current.value.trim().length <5 && errArr.push("Password must be at leadt 5 characters") ;
+    errArr.length > 0 && setErr(errArr);
+  };
+
+  useEffect(() => {
+    const time = setTimeout(() => {
+      setErr([]);
+    }, 3000);
+
+    return () => {
+      clearTimeout(time);
+    };
+  }, [err]);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Form Validation</h1>
@@ -27,15 +47,19 @@ const InputValidationUI = () => {
         type="email"
         placeholder="Enter your email"
         thisStyle={styles.inputField}
+        ref={emailRef}
       />
       <FormInput
         type="password"
         placeholder="Enter your password"
         thisStyle={styles.inputField}
+        ref={passwordRef}
       />
-      <button className={styles.button}>Submit</button>
+      <button className={styles.button} onClick={handleSubmit}>
+        Submit
+      </button>
       <div className={styles.validationMessages}>
-        <p>Validation messages will appear here...</p>
+        {err && err.map((msg) => <p key={msg}>{msg}</p>)}
       </div>
     </div>
   );
