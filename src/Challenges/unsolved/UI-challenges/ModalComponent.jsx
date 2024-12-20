@@ -55,7 +55,9 @@ const ModalUI = () => {
       <Modal isOpen={open} onClick={hanldeClick}>
         <h2>Modal Title</h2>
         <p>This is a modal content.</p>
-        <button className={styles.closeButton}>Close</button>
+        <button className={styles.closeButton} onClick={hanldeClick}>
+          Close
+        </button>
       </Modal>
     </div>
   );
