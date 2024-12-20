@@ -6,9 +6,10 @@ import CounterUI from "./Challenges/unsolved/Basic-concepts/Counter";
 import SearchFilterUI from "./Challenges/unsolved/Basic-concepts/SearchFilterUI";
 import TimerUI from "./Challenges/unsolved/State-Management-Hooks/TimerStopWatch";
 import ModalUI from "./Challenges/unsolved/UI-challenges/ModalComponent";
+import InputValidationUI from "./Challenges/unsolved/State-Management-Hooks/InputValidation";
 
 function App() {
-  return <ModalUI />;
+  return <InputValidationUI />;
 }
 
 export default App;
