@@ -1,61 +1,62 @@
 import React from "react";
+import { createPortal } from "react-dom";
+import { useState, useEffect } from "react";
+import styles from "./ModalComponent.module.css";
+// Modal Component Challenge:
+/**
+ * 1. Create a reusable Modal UI with:
+ *    - A button to open the modal.
+ *    - A close button (`×`) inside the modal.
+ *    - Dynamic content inside the modal using children.
+ * 2. Ensure the modal appears on top of the existing content.
+ * Bonus:
+ * - Add a backdrop that closes the modal when clicked.
+ */
+const Modal = ({ children, isOpen, onClick }) => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClick();
+      }
+    };
 
-const ModalUI = () => {
-  // Modal Component Challenge:
-  /**
-   * 1. Create a reusable Modal UI with:
-   *    - A button to open the modal.
-   *    - A close button (`×`) inside the modal.
-   *    - Dynamic content inside the modal using children.
-   * 2. Ensure the modal appears on top of the existing content.
-   * Bonus:
-   * - Add a backdrop that closes the modal when clicked.
-   */
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Modal Component</h1>
-      <button
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#007BFF",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
+    isOpen &&
+    createPortal(
+      <div className={styles.overlay}>
+        <div className={styles.modal}>
+          <div className={styles.content}>{children}</div>
+        </div>
+      </div>,
+      document.querySelector("#modal")
+    )
+  );
+};
+const ModalUI = () => {
+  const [open, setOpen] = useState(false);
+  const hanldeClick = () => {
+    setOpen((prev) => !prev);
+  };
+  return (
+    <div className={styles.container}>
+      <h1>MODAL COMPONENT</h1>
+      <button className={styles.openButton} onClick={hanldeClick}>
         Open Modal
       </button>
-      <div
-        style={{
-          display: "none", // Change to "block" to simulate modal visibility
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          padding: "20px",
-          backgroundColor: "#fff",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-          borderRadius: "10px",
-          zIndex: 1000,
-        }}
-      >
-        <button
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            background: "none",
-            border: "none",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          ×
-        </button>
-        <p>Modal content goes here...</p>
-      </div>
+      {/* In React, the pattern of passing functions as props from a parent
+      component to a child component is commonly referred to as "lifting state
+      up" or "callback props". */}
+      <Modal isOpen={open} onClick={hanldeClick}>
+        <h2>Modal Title</h2>
+        <p>This is a modal content.</p>
+        <button className={styles.closeButton}>Close</button>
+      </Modal>
     </div>
   );
 };

@@ -5,8 +5,10 @@ import SwitcherApp from "./Challenges/unsolved/Theme-switcher/SwitcherApp";
 import CounterUI from "./Challenges/unsolved/Basic-concepts/Counter";
 import SearchFilterUI from "./Challenges/unsolved/Basic-concepts/SearchFilterUI";
 import TimerUI from "./Challenges/unsolved/State-Management-Hooks/TimerStopWatch";
+import ModalUI from "./Challenges/unsolved/UI-challenges/ModalComponent";
+
 function App() {
-  return <TimerUI />;
+  return <ModalUI />;
 }
 
 export default App;

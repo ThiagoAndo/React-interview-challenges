@@ -159,10 +159,6 @@ const PaginationUI = () => {
   const handlePrevious = () => setPageNum((prev) => prev - 1);
   const handlePageNum = (num) => setPageNum(num);
 
-  console.log("firstIndex");
-  console.log(firstIndex);
-  console.log("lastIndex");
-  console.log(lastIndex);
 
   useEffect(() => {
     const fetchData = async () => {

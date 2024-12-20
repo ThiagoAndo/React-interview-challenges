@@ -66,7 +66,6 @@ const reducer = (state, action) => {
       return { error: action.e, isLoading: false, items: [] };
   }
 };
-
 const initialState = {
   isLoading: false,
   error: null,
@@ -197,4 +196,35 @@ const CRUDAppUI = () => {
   );
 };
 
+
+// const CRUDAppUI = () => {
+//   return (
+//     <div className={styles.container}>
+//       <h1 className={styles.title}>CRUD Operations</h1>
+//       <div className={styles.inputGroup}>
+//         <input
+//           type="text"
+//           placeholder="Enter item name"
+//           className={styles.inputField}
+//         />
+//         <button className={styles.addButton}>Add Item</button>
+//       </div>
+//       <ul className={styles.list}>
+//         <li className={styles.loading}>Loading data ...</li>
+//         <li className={styles.error}>Error message here</li>
+//         <li className={styles.listItem}>
+//           <span className={styles.itemText}>Item Name</span>
+//           <div className={styles.actionButton}>
+//             <button className={styles.actionButton + " " + styles.editButton}>
+//               Edit
+//             </button>
+//             <button className={styles.actionButton + " " + styles.deleteButton}>
+//               Delete
+//             </button>
+//           </div>
+//         </li>
+//       </ul>
+//     </div>
+//   );
+// };
 export default CRUDAppUI;
