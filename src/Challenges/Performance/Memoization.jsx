@@ -34,6 +34,8 @@ const ExpensiveCalculation = () => {
 
   // Memoize the result to avoid recalculating unless num changes
   const factorialOf = (n) => (n <= 1 ? 1 : n * factorialOf(n - 1));
+
+  
   const factorial = useMemo(() => {
     console.log("Calculating factorial...");
     return num <= 0 ? 1 : num * factorialOf(num - 1);
